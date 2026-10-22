@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMEMatch — Sprint Board</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{--bg:#0a1628;--panel:#0f2038;--panel2:#13284a;--line:#1e3a5f;--tx:#e8f0f8;--mu:#8aa5c0;--cy:#22d3ee}
+body{background:var(--bg);color:var(--tx);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:72rem;margin:0 auto;padding:2rem 1.25rem}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.15rem .8rem;font-size:.72rem;letter-spacing:.18em;color:var(--cy)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:1rem}
+.on{border-color:var(--cy);background:rgba(34,211,238,.08)}
+.bar{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden}
+.bar>div{height:100%;border-radius:99px}
+a{color:var(--cy)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mb-10">
+  <span class="tag">GROUP PROJECT · SCRUM</span>
+  <h1 class="mt-4 text-4xl font-extrabold">SMEMatch</h1>
+  <p class="mt-3 text-lg" style="color:var(--mu)">Marketplace matching township SMEs to tenders they actually qualify for — with an explainable eligibility check per tender.</p>
+  <p class="mt-2 text-sm" style="color:var(--mu)">Team of 4 · Thu 22 Oct – Fri 11 Dec 2026 · <a href="https://github.com/tshepisofrominnostation/smematch">GitHub repo</a></p>
+</header>
+<section class="mb-10">
+  <p class="tag mb-3">SPRINT GOALS</p>
+  <div class="grid md:grid-cols-2 gap-3" id="weeks"></div>
+</section>
+<section class="mb-10">
+  <p class="tag mb-3">CURRENT SPRINT 0 — TODAY TILL FRIDAY</p>
+  <div class="card p-5">
+    <table class="w-full text-sm">
+      <tbody id="board"></tbody>
+    </table>
+  </div>
+</section>
+<section class="mb-10 grid md:grid-cols-2 gap-3">
+  <div class="card p-5"><p class="tag mb-3">TEAM</p><ul class="text-sm space-y-2" id="team"></ul></div>
+  <div class="card p-5"><p class="tag mb-3">WORKING AGREEMENT</p>
+    <ul class="text-sm list-disc pl-5 space-y-2" style="color:#cbd5e1">
+      <li>Stand-up 08:30 · checkpoint 12:30 · push by 16:00</li>
+      <li>One branch per story, PR reviewed before merge</li>
+      <li>DoD: demo-tested, README updated, committed</li>
+      <li>Retros every Friday in <span style="color:var(--cy)">docs/retrospectives/</span></li>
+      <li>Never cut: eligibility engine, explainability, deployment, docs</li>
+    </ul>
+  </div>
+</section>
+<footer class="text-center text-xs pb-8" style="color:var(--mu)">SMEMatch sprint site · maintained from docs/SPRINT_PLAN.md</footer>
+</div>
+<script>
+const WEEKS=[
+ {w:"Sprint 0",d:"Thu 22 – Fri 23 Oct",t:"Starter: setup + discovery",g:"Team aligned, repo live, schemas agreed, fixtures seeded.",s:"doing"},
+ {w:"Sprint 1",d:"Mon 26 Oct – Fri 6 Nov",t:"Profiles + ingestion",g:"An SME registers a profile; a tender pastes in and parses.",s:"todo"},
+ {w:"Sprint 2",d:"Mon 9 – Fri 20 Nov",t:"Eligibility + explainability",g:"Do I qualify? — answered with evidence, per tender.",s:"todo"},
+ {w:"Sprint 3",d:"Mon 23 Nov – Fri 11 Dec",t:"Dashboard, tracking, deploy",g:"A deployed, documented, demo-ready marketplace.",s:"todo"},
+];
+const BOARD=[
+ ["S0-1","Sprint planning: roles, agreement, stand-up time","All",1],
+ ["S0-2","Repo setup: branches, PR flow, skeleton","Scrum Master",1],
+ ["S0-3","Data model: SME profile + tender schemas","Dev 1",2],
+ ["S0-4","Eligibility factors agreed (CIPC, B-BBEE, tax, category)","SM + Dev 1",1],
+ ["S0-5","Fixtures: 5 SME profiles + 10 tenders","Dev 2 + QA",2],
+ ["S0-6","Sprint 0 review + retro file filled","All",1],
+];
+const TEAM=[
+ ["Tshepiso Freddy Thosago","Scrum Master / Developer","Process, eligibility engine, delivery"],
+ ["Team member 1","Developer","SME profiles + data layer"],
+ ["Team member 2","Developer","Tender ingestion + parsing"],
+ ["Team member 3","QA / Documentation","Test gate, docs, demo assets"],
+];
+function $(id){return document.getElementById(id);}
+$("weeks").innerHTML=WEEKS.map(x=>`<div class="card p-5 ${x.s==='doing'?'on':''}">
+ <div class="flex justify-between items-center flex-wrap gap-2"><b>${x.w} · ${x.t}</b><span class="text-xs" style="color:var(--mu)">${x.d}</span></div>
+ <p class="text-sm mt-2" style="color:#cbd5e1">${x.g}</p></div>`).join("");
+$("board").innerHTML=BOARD.map(b=>`<tr style="border-top:1px solid var(--line)">
+ <td class="py-2 pr-4" style="color:var(--cy)">${b[0]}</td><td class="py-2 pr-4">${b[1]}</td><td class="py-2 pr-4 text-xs" style="color:var(--mu)">${b[2]}</td><td class="py-2">${b[3]} pt</td></tr>`).join("");
+$("team").innerHTML=TEAM.map(t=>`<li><b>${t[0]}</b> — <span style="color:var(--cy)">${t[1]}</span><br><span class="text-xs" style="color:var(--mu)">${t[2]}</span></li>`).join("");
+</script>
+</body>
+</html>
